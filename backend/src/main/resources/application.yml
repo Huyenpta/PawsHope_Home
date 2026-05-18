@@ -1,0 +1,38 @@
+server:
+  port: 4000
+
+spring:
+  application:
+    name: pawshope-backend
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/pawshope?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Ho_Chi_Minh&allowMultiQueries=true&tinyInt1isBit=false
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+
+  jackson:
+    default-property-inclusion: non_null
+
+  sql:
+    init:
+      mode: never
+
+logging:
+  level:
+    net.pawshope: DEBUG
+    org.springframework.jdbc.core: INFO
+
+app:
+  cors:
+    allowed-origins:
+      - http://localhost:5173
+      - http://127.0.0.1:5173
+  jwt:
+    secret: pawshope_dev_secret_change_in_production_2026_make_it_long_enough
+    expires-in-days: 7
+  upload:
+    dir: ./uploads
+    max-size-mb: 5

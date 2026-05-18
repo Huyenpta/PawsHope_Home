@@ -1,0 +1,13 @@
+{
+  "name": "pawshope-home",
+  "private": true,
+  "description": "Monorepo: frontend/ (Vite) và backend/ (Spring Boot) cùng cấp trong PawsHope_Home",
+  "scripts": {
+    "dev": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "preview": "npm run preview --prefix frontend",
+    "lint": "npm run lint --prefix frontend",
+    "backend:dev": "cd backend && mvnw.cmd spring-boot:run",
+    "backend:package": "cd backend && mvnw.cmd -q clean package -DskipTests"
+  }
+}
