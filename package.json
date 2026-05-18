@@ -7,7 +7,7 @@
     "build": "npm run build --prefix frontend",
     "preview": "npm run preview --prefix frontend",
     "lint": "npm run lint --prefix frontend",
-    "backend:dev": "cd backend && mvnw.cmd spring-boot:run",
-    "backend:package": "cd backend && mvnw.cmd -q clean package -DskipTests"
+    "backend:dev": "node scripts/run-backend.cjs spring-boot:run",
+    "backend:package": "node scripts/run-backend.cjs -q clean package -DskipTests"
   }
 }

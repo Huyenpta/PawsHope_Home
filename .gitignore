@@ -23,6 +23,15 @@ dist-ssr
 *.sln
 *.sw?
 
+# Env / secrets (tạo bản *.example để chia sẻ mẫu)
+.env
+.env.*
+!.env.example
+
+# Frontend (rõ đường dẫn để không lẫn với repo khác)
+frontend/node_modules/
+frontend/dist/
+
 # Java / Spring (backend)
 backend/target/
 backend/uploads/
