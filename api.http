@@ -1,0 +1,234 @@
+### PawsHope Backend - Sample API calls (VS Code REST Client / IntelliJ HTTP)
+@host = http://localhost:4000
+@adminToken = paste-admin-jwt-after-login
+@userToken = paste-user-jwt-after-login
+
+### Health check
+GET {{host}}/api/health
+
+### --- AUTH ---
+### Register
+POST {{host}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "demo_user",
+  "password": "demo12345",
+  "fullName": "Demo User",
+  "email": "demo@example.com",
+  "phone": "0901234567"
+}
+
+### Login admin
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "username": "admin", "password": "admin123" }
+
+### Login user1
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "username": "user1", "password": "user123" }
+
+### /me
+GET {{host}}/api/auth/me
+Authorization: Bearer {{adminToken}}
+
+### --- RESCUE ---
+### Public stats (frontend đang gọi cái này)
+GET {{host}}/api/rescue-reports/public-stats
+
+### Create rescue report (anonymous)
+POST {{host}}/api/rescue-reports
+Content-Type: application/json
+
+{
+  "reporterName": "Người dân Hà Nội",
+  "reporterPhone": "0987654321",
+  "locationText": "Đầu phố Bà Triệu, Q. Hai Bà Trưng, Hà Nội",
+  "description": "Một bé mèo con bị thương ở chân, đang nằm dưới gầm xe."
+}
+
+### Track by code (thay code thực tế)
+GET {{host}}/api/rescue-reports/track/RP-2026-7260
+
+### List rescue (admin only)
+GET {{host}}/api/rescue-reports?status=Pending&page=1&limit=10
+Authorization: Bearer {{adminToken}}
+
+### Update status (assign volunteer)
+PATCH {{host}}/api/rescue-reports/1
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{ "status": "In Progress", "assignedTo": 2 }
+
+### --- PETS / KENNELS ---
+### List pets (public)
+GET {{host}}/api/pets?species=Cat&status=Available&page=1&limit=10
+
+### Get pet
+GET {{host}}/api/pets/1
+
+### Create pet (admin)
+POST {{host}}/api/pets
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "name": "Miu Vàng",
+  "species": "Cat",
+  "breed": "Mèo ta",
+  "ageMonths": 6,
+  "status": "Available",
+  "description": "Vào trạm sau cứu hộ.",
+  "kennelId": 2
+}
+
+### List kennels
+GET {{host}}/api/kennels
+
+### --- ADOPTIONS ---
+### Apply (user)
+POST {{host}}/api/adoptions
+Content-Type: application/json
+Authorization: Bearer {{userToken}}
+
+{ "petId": 1, "notes": "Tôi đã có kinh nghiệm nuôi mèo 5 năm." }
+
+### My adoptions
+GET {{host}}/api/adoptions/my
+Authorization: Bearer {{userToken}}
+
+### All adoptions (admin)
+GET {{host}}/api/adoptions
+Authorization: Bearer {{adminToken}}
+
+### Approve adoption (transactional - đổi pet status & reject các đơn khác)
+PATCH {{host}}/api/adoptions/1
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{ "status": "Approved", "notes": "Hồ sơ ổn, hẹn hôm sau bàn giao." }
+
+### --- PRODUCTS / CART / ORDERS ---
+### List products
+GET {{host}}/api/products
+
+### Add to cart
+POST {{host}}/api/cart
+Content-Type: application/json
+Authorization: Bearer {{userToken}}
+
+{ "productId": 1, "quantity": 2 }
+
+### View cart
+GET {{host}}/api/cart
+Authorization: Bearer {{userToken}}
+
+### Checkout (giảm stock, tạo order, xoá cart - tất cả trong 1 transaction)
+POST {{host}}/api/orders/checkout
+Content-Type: application/json
+Authorization: Bearer {{userToken}}
+
+{ "shippingAddress": "123 Lê Lợi, Q.1, TP.HCM" }
+
+### My orders
+GET {{host}}/api/orders/my
+Authorization: Bearer {{userToken}}
+
+### Update order status (admin)
+PATCH {{host}}/api/orders/1/status
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{ "status": "Shipped" }
+
+### --- DONATIONS ---
+### Donate money (anonymous OK)
+POST {{host}}/api/donations/money
+Content-Type: application/json
+
+{
+  "donorName": "Anh Trung",
+  "amount": 500000,
+  "method": "MoMo",
+  "purpose": "Giúp bé Miu Vàng phẫu thuật"
+}
+
+### Donate items
+POST {{host}}/api/donations/items
+Content-Type: application/json
+
+{
+  "donorName": "Chị Lan",
+  "itemName": "Thức ăn hạt cho chó",
+  "category": "Food",
+  "quantity": "10 kg"
+}
+
+### Donation stats
+GET {{host}}/api/donations/stats
+
+### --- VOLUNTEERS ---
+### Apply
+POST {{host}}/api/volunteer-applications
+Content-Type: application/json
+
+{
+  "fullName": "Phạm Anh Tuấn",
+  "email": "tuan@example.com",
+  "phone": "0905555444",
+  "skills": "Đã chăm sóc 3 bé mèo, có xe máy",
+  "reasonToJoin": "Muốn giúp đỡ cộng đồng"
+}
+
+### List shifts
+GET {{host}}/api/shifts
+
+### Register shift (volunteer/admin)
+POST {{host}}/api/volunteer-schedules
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{ "shiftId": 1, "workDate": "2026-05-20" }
+
+### My schedules
+GET {{host}}/api/volunteer-schedules/my
+Authorization: Bearer {{adminToken}}
+
+### --- EXPENSES (admin) ---
+### Create expense
+POST {{host}}/api/expenses
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "category": "Medical",
+  "amount": 1500000,
+  "description": "Tiền thuốc và truyền nước cho bé Miu Vàng",
+  "expenseDate": "2026-05-13"
+}
+
+### Expense summary
+GET {{host}}/api/expenses/summary
+Authorization: Bearer {{adminToken}}
+
+### --- NOTIFICATIONS ---
+GET {{host}}/api/notifications
+Authorization: Bearer {{userToken}}
+
+### Unread count
+GET {{host}}/api/notifications/unread-count
+Authorization: Bearer {{userToken}}
+
+### --- USERS (admin) ---
+GET {{host}}/api/users
+Authorization: Bearer {{adminToken}}
+
+### Validation error example (thiếu reporterPhone, locationText quá ngắn)
+POST {{host}}/api/rescue-reports
+Content-Type: application/json
+
+{ "locationText": "x" }
