@@ -1,87 +1,90 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const RescueStories = () => {
   const stories = [
     {
       id: 1,
-      title: "Hành trình hồi sinh của bé Cà Phê bị bỏ rơi giữa đêm đông",
-      date: "15/04/2026",
-      summary: "Cà Phê được tìm thấy trong tình trạng suy kiệt hoàn toàn. Sau 3 tháng điều trị tích cực...",
+      title: "The Miraculous Recovery of Coffee: Rescued on a Winter Night",
+      date: "April 15, 2026",
+      summary: "Found exhausted and starving, Coffee has fought through 3 months of intensive medical care to find hope again...",
       image: "https://images.unsplash.com/photo-1599443015574-be5fe8a05783?q=80&w=500&auto=format&fit=crop",
-      tag: "CỨU HỘ"
+      tag: "RESCUE"
     },
     {
       id: 2,
-      title: "Vòng tay yêu thương: Bé Mochi đã tìm thấy mái ấm mới tại Đà Lạt",
-      date: "10/04/2026",
-      summary: "Lời chia sẻ đầy xúc động của gia đình mới nhận nuôi bé Mochi sau gần 1 năm ở trạm.",
+      title: "Happy Tails: Mochi Finds a Forever Home in Da Lat",
+      date: "April 10, 2026",
+      summary: "A touching letter from the family who adopted Mochi after he spent nearly a year at our shelter.",
       image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=500&auto=format&fit=crop",
-      tag: "VỀ NHÀ MỚI"
+      tag: "ADOPTED"
     },
     {
       id: 3,
-      title: "Chiến dịch 'Áo ấm cho cún' - Những món quà sưởi ấm tâm hồn",
-      date: "05/04/2026",
-      summary: "Hơn 200 chiếc áo len đã được các tình nguyện viên tự tay đan tặng cho các bé tại sân.",
+      title: "Warm Coats Campaign: Bringing Hope to Every Soul",
+      date: "April 05, 2026",
+      summary: "Over 200 handmade sweaters were donated by our amazing volunteers to keep the animals warm this season.",
       image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=500&auto=format&fit=crop",
-      tag: "HOẠT ĐỘNG"
+      tag: "COMMUNITY"
     }
   ];
 
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto max-w-6xl px-4">
-        {/* Tiêu đề phần Nhật ký */}
+        {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
           <div className="space-y-2">
-            <h2 className="text-3xl font-black text-[#2c5f51] uppercase tracking-tighter">
-              Nhật ký cứu hộ & Cộng đồng
+            <h2 className="text-4xl font-black text-[#2c5f51] uppercase tracking-tighter leading-none">
+              Rescue <span className="text-[#f6931d]">Diaries</span> & Community
             </h2>
-            <p className="text-gray-500 italic">Những câu chuyện nhỏ viết nên những hy vọng lớn 🐾</p>
+            <p className="text-gray-500 italic">Small stories writing big hopes 🐾</p>
           </div>
-          <Button variant="link" className="text-[#f6931d] font-bold p-0 hover:no-underline flex items-center gap-2">
-            Xem tất cả bài viết <BookOpen size={18} />
-          </Button>
+          <Link to="/blog">
+            <Button variant="link" className="text-[#f6931d] font-black uppercase tracking-widest p-0 hover:no-underline flex items-center gap-2 text-xs">
+              View All Posts <BookOpen size={16} />
+            </Button>
+          </Link>
         </div>
 
-        {/* Lưới bài viết */}
+        {/* Story Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {stories.map((story) => (
-            <Card key={story.id} className="border border-gray-100 shadow-sm group cursor-pointer overflow-hidden rounded-2xl">
-              {/* Phần ảnh */}
+            <Card key={story.id} className="border border-gray-100 shadow-sm group cursor-pointer overflow-hidden rounded-[2rem] bg-white transition-all hover:shadow-xl">
+              {/* Image Section */}
               <div className="relative h-64 overflow-hidden">
                 <img 
                   src={story.image} 
                   alt={story.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-[#f6931d] text-white text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wider">
+                  <span className="bg-[#f6931d] text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-md">
                     {story.tag}
                   </span>
                 </div>
               </div>
               
-              {/* Phần nội dung - Đã thêm padding p-5 để không bị sát viền */}
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center text-gray-400 text-xs gap-2">
-                  <Calendar size={14} />
+              {/* Content Section */}
+              <CardContent className="p-8 space-y-4">
+                <div className="flex items-center text-gray-400 text-[10px] font-bold uppercase tracking-widest gap-2">
+                  <Calendar size={12} className="text-[#f6931d]" />
                   <span>{story.date}</span>
                 </div>
                 
-                <h3 className="text-xl font-bold text-[#2c5f51] group-hover:text-[#f6931d] transition-colors line-clamp-2 leading-tight">
+                <h3 className="text-xl font-black text-[#2c5f51] group-hover:text-[#f6931d] transition-colors line-clamp-2 leading-tight uppercase tracking-tighter">
                   {story.title}
                 </h3>
                 
-                <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
+                <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed font-medium opacity-80">
                   {story.summary}
                 </p>
                 
                 <div className="pt-2">
-                  <span className="text-[#f6931d] font-bold text-sm border-b-2 border-[#f6931d] pb-0.5">
-                    Đọc tiếp
+                  <span className="text-[#f6931d] font-black text-[10px] uppercase tracking-[0.2em] border-b-2 border-[#f6931d] pb-1 transition-all group-hover:tracking-[0.3em]">
+                    Read More
                   </span>
                 </div>
               </CardContent>

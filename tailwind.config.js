@@ -50,6 +50,15 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      animation: {
+        'bounce-short': 'bounceShort 0.5s ease-out 1'
+      },
+      keyframes: {
+        bounceShort: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        }
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

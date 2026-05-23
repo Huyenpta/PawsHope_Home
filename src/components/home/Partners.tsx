@@ -18,7 +18,7 @@ export const Partners = () => {
         
         <div className="text-center mb-12">
           <h2 className="text-3xl font-black text-[#2c5f51] uppercase tracking-tighter">
-            Đồng hành cùng SNNC 🐾
+            Our Proud <span className="text-[#f6931d]">Partners</span> 🐾
           </h2>
           <div className="w-16 h-1 bg-[#f6931d] mx-auto mt-2 rounded-full"></div>
         </div>
@@ -42,18 +42,13 @@ export const Partners = () => {
             <SwiperSlide key={index}>
               <div className="group relative w-full h-28 bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 transition-all hover:shadow-md flex items-center justify-center p-4">
                 
-                {/* 
-                  SỬA ĐỔI CHÍNH TẠI ĐÂY:
-                  1. object-contain: Giúp ảnh thu nhỏ vừa khít khung, không bị mất chi tiết logo.
-                  2. Bỏ grayscale và opacity-70: Giữ nguyên màu sắc gốc của đối tác.
-                */}
                 <img 
                   src={partner.logo} 
                   alt={partner.name}
                   className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-110"
                 />
 
-                {/* Lớp phủ chữ khi hover - Giữ màu đen mờ để chữ trắng nổi bật */}
+                {/* Hover overlay with brand color */}
                 <div className="absolute inset-0 bg-[#2c5f51]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="text-white font-bold text-xs tracking-widest uppercase text-center px-2">
                     {partner.name}
@@ -65,6 +60,7 @@ export const Partners = () => {
           ))}
         </Swiper>
 
+        {/* Decorative Pagination Dots */}
         <div className="flex justify-center gap-2 mt-4">
           <div className="w-8 h-1.5 rounded-full bg-[#f6931d]"></div>
           <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>

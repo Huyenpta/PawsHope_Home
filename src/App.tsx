@@ -1,30 +1,36 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
-import { Hero } from "./components/home/Hero";
-import { AboutSection } from "./components/home/AboutSection";
-import { PetAdoptList } from "./components/home/PetAdoptList";
-import { Donation } from "./components/home/Donation";
-import { KnowledgeBase } from "./components/home/KnowledgeBase";
-import { RescueStories } from "./components/home/RescueStories";
-import { Partners } from "./components/home/Partners";
+import { Home } from "./pages/Home";
+import { AdoptPage } from "./pages/Adopt"; // Import trang Nhận nuôi của bạn
+import { Rescue } from "./pages/Rescue";
+import { ShopPage } from "./pages/ShopPage";
+import { ContactPage } from "./pages/ContactPage";
+import { ProductDetailPage } from "./pages/ProductDetailPage";
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
-      <main className="flex-grow">
-        <Hero />
-        <AboutSection />
-        <PetAdoptList />
-        <Donation />
-        <KnowledgeBase />
-        <RescueStories />
-        <Partners />
-      </main>
+    <Router>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        
+        <main className="flex-grow">
+          <Routes>
+            {/* Đường dẫn trang chủ */}
+            <Route path="/" element={<Home />} />
+            
+            {/* Đường dẫn trang nhận nuôi */}
+            <Route path="/adopt" element={<AdoptPage />} />
+            <Route path="/rescue" element={<Rescue />} />
+            <Route path="/Shop" element={<ShopPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/shop/${product.id}" element={< ProductDetailPage/>}/>
+          </Routes>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
